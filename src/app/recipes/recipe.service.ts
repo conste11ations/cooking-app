@@ -24,13 +24,16 @@ export class RecipeService {
 
   constructor(private shoppingListService: ShoppingListService) {}
 
-  getRecipes() {
+  getRecipe(id: number): Recipe {
+    return this.recipes[id];
+  }
+  getRecipes(): Recipe[] {
     // returning this.recipes will return the array from the RecipeServices
     // and thus will change the array on the service, so we use slice to return a copy instead
     return this.recipes.slice();
   }
 
-  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+  addIngredientsToShoppingList(ingredients: Ingredient[]): void {
     this.shoppingListService.addIngredients(ingredients);
   }
 }
