@@ -11,13 +11,13 @@ export class RecipeService {
     new Recipe(
       'test recipe',
       'desc',
-      'https://get.pxhere.com/photo/dish-meal-food-vegetable-recipe-cuisine-vegetarian-food-parmigiana-1417897.jpg',
+      'https://www.brit.co/media-library/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTg5MzEyNS9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTYxMTk3MTkyMn0.tqYFgYIz0rZGWgvEVvSAXG9F35y9xdpF3Ks8TQ7fsSM/image.jpg?width=300&quality=85',
       [new Ingredient('Meat', 1), new Ingredient('French Fries', 20)]
     ),
     new Recipe(
       'test recipe2',
       'desc2',
-      'https://get.pxhere.com/photo/dish-meal-food-vegetable-recipe-cuisine-vegetarian-food-parmigiana-1417897.jpg',
+      'https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTg5MzIwNi9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTY1NzgyNTMzMH0.Xx9dx1wOXDVEPfLKk8ihyb1UoGFSVHHnZ4cKh6uFyMk/img.jpg?quality=80&width=300',
       [new Ingredient('Bread', 2), new Ingredient('Tomatoes', 1)]
     ),
   ];
@@ -25,7 +25,7 @@ export class RecipeService {
   constructor(private shoppingListService: ShoppingListService) {}
 
   getRecipes() {
-    //returning this.recipes will return the array from the RecipeServices
+    // returning this.recipes will return the array from the RecipeServices
     // and thus will change the array on the service, so we use slice to return a copy instead
     return this.recipes.slice();
   }
