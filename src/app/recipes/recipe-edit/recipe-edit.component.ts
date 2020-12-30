@@ -60,6 +60,11 @@ export class RecipeEditComponent implements OnInit {
     );
   }
 
+  onDeleteIngredient(index: number): void {
+    (this.recipeForm.get('ingredients') as FormArray).removeAt(index);
+    // (<FormArray>this.recipeForm.get('ingredients')).clear(); to clear all registered FormControls/FormGroups in FormArray
+  }
+
   onCancel(): void {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
