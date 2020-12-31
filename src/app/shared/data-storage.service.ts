@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipes.model';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' }) // alternative to setting this in providers in app.module.ts
 export class DataStorageService {
@@ -21,8 +21,8 @@ export class DataStorageService {
       });
   }
 
-  fetchRecipes(): void {
-    this.http
+  fetchRecipes(): any {
+    return this.http
       .get<Recipe[]>(
         'https://ng-course-recipe-app-4eeb9-default-rtdb.firebaseio.com/recipes.json'
       )
@@ -34,10 +34,10 @@ export class DataStorageService {
               ingredients: recipe.ingredients ? recipe.ingredients : [],
             };
           });
+        }),
+        tap((recipes) => {
+          this.recipeService.setRecipes(recipes);
         })
-      )
-      .subscribe((recipes: Recipe[]) => {
-        this.recipeService.setRecipes(recipes);
-      });
+      );
   }
 }
