@@ -8,22 +8,31 @@ import { Recipe } from './recipes.model';
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'test recipe',
-      'desc',
-      'https://www.brit.co/media-library/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTg5MzEyNS9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTYxMTk3MTkyMn0.tqYFgYIz0rZGWgvEVvSAXG9F35y9xdpF3Ks8TQ7fsSM/image.jpg?width=300&quality=85',
-      [new Ingredient('Meat', 1), new Ingredient('French Fries', 20)]
-    ),
-    new Recipe(
-      'test recipe2',
-      'desc2',
-      'https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTg5MzIwNi9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTY1NzgyNTMzMH0.Xx9dx1wOXDVEPfLKk8ihyb1UoGFSVHHnZ4cKh6uFyMk/img.jpg?quality=80&width=300',
-      [new Ingredient('Bread', 2), new Ingredient('Tomatoes', 1)]
-    ),
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'test recipe',
+  //     'desc',
+  // tslint:disable-next-line: max-line-length
+  //     'https://www.brit.co/media-library/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTg5MzEyNS9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTYxMTk3MTkyMn0.tqYFgYIz0rZGWgvEVvSAXG9F35y9xdpF3Ks8TQ7fsSM/image.jpg?width=300&quality=85',
+  //     [new Ingredient('Meat', 1), new Ingredient('French Fries', 20)]
+  //   ),
+  //   new Recipe(
+  //     'test recipe2',
+  //     'desc2',
+  // tslint:disable-next-line: max-line-length
+  //     'https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTg5MzIwNi9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTY1NzgyNTMzMH0.Xx9dx1wOXDVEPfLKk8ihyb1UoGFSVHHnZ4cKh6uFyMk/img.jpg?quality=80&width=300',
+  //     [new Ingredient('Bread', 2), new Ingredient('Tomatoes', 1)]
+  //   ),
+  // ];
+
+  private recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]): void {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipe(id: number): Recipe {
     return this.recipes[id];
