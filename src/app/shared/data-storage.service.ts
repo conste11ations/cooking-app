@@ -29,25 +29,28 @@ export class DataStorageService {
   fetchRecipes(): any {
     // take = take 1 value from observable and automatically unsubscribe
     // exhaustMap combines observables together
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap((user) => {
-        return this.http.get<Recipe[]>(
-          'https://ng-course-recipe-app-4eeb9-default-rtdb.firebaseio.com/recipes.json',
-          { params: new HttpParams().set('auth', user.token) }
-        );
-      }),
-      map((recipes: Recipe[]) => {
-        return recipes.map((recipe) => {
-          return {
-            ...recipe,
-            ingredients: recipe.ingredients ? recipe.ingredients : [],
-          };
-        });
-      }),
-      tap((recipes: Recipe[]) => {
-        this.recipeService.setRecipes(recipes);
-      })
-    );
+    // return this.authService.user.pipe(
+    //   take(1),
+    //   exhaustMap((user) => {
+    return this.http
+      .get<Recipe[]>(
+        'https://ng-course-recipe-app-4eeb9-default-rtdb.firebaseio.com/recipes.json'
+        // { params: new HttpParams().set('auth', user.token) }
+      )
+      .pipe(
+        map((recipes: Recipe[]) => {
+          return recipes.map((recipe) => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : [],
+            };
+          });
+        }),
+        tap((recipes: Recipe[]) => {
+          this.recipeService.setRecipes(recipes);
+        })
+      );
+    //   })
+    // );
   }
 }

@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
@@ -18,7 +19,7 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
   // ^ behaves like a Subject, can call next, but also gives subcribers access to the previously emitted value
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
   signup(email: string, password: string): Observable<AuthResponseData> {
     // firebase says ok to make this api key public and I've secured it with very low query quotas
     return this.http
@@ -56,6 +57,11 @@ export class AuthService {
           )
         )
       );
+  }
+
+  logout(): void {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
   }
 
   private handleError(errorResponse: HttpErrorResponse): Observable<never> {
